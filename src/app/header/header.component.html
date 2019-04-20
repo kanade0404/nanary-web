@@ -1,11 +1,11 @@
 <mat-toolbar color="primary">
-  <span style="font-family:'Courier New', Courier, monospace">nanary</span>
+  <span style="font-family:'Roboto', sans-serif">nanary</span>
   <span class="space"></span>
-  <button mat-icon-button>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" *ngIf="globalService.isLoggedIn">
     <mat-icon>menu</mat-icon>
   </button>
 </mat-toolbar>
-<mat-menu>
+<mat-menu #menu="matMenu">
   <button mat-menu-item>
     <mat-icon>account_circle</mat-icon>
     <span>プロフィール</span>
@@ -13,5 +13,9 @@
   <button mat-menu-item>
     <mat-icon>settings</mat-icon>
     <span>設定</span>
+  </button>
+  <button mat-menu-item (click)="signOut()">
+    <mat-icon>settings</mat-icon>
+    <span>ログアウト</span>
   </button>
 </mat-menu>

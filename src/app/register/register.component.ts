@@ -7,23 +7,26 @@ import { User } from '../models/user';
 
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-
-export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+export class RegisterComponent implements OnInit {
+  registerForm: FormGroup;
   user: User = new User();
 
   constructor(private router: Router, private formBuilder: FormBuilder,
     private authService: AuthService) {
-    this.loginForm = new FormGroup({
+    this.registerForm = new FormGroup({
       'username': new FormControl(this.user.username, [
+        Validators.required,
+        Validators.maxLength(100)
+      ]),
+      'email': new FormControl(this.user.email, [
         Validators.required,
         Validators.email
       ]),
-      'password': new FormControl(this.user.password,[
+      'password': new FormControl(this.user.password, [
         Validators.required,
         Validators.minLength(8)
       ])
@@ -35,11 +38,11 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['home']);
     }
   }
+
   /**
-   * ユーザーが登録済みならトークンを取得しログイン
-   * ユーザーが未登録なら登録後、トークンを取得しログイン
+   * ユーザー登録
    */
-  async signIn() {
-    await this.authService.signIn(this.loginForm.value);
+  async signUp() {
+    await this.authService.signUp(this.registerForm.value);
   }
 }

@@ -1,9 +1,18 @@
+/**
+ * Angular Module
+ */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-// firebase
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+/**
+ * firebase
+ */
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-// routing
+/**
+ * Routing
+ */
 import { AppRoutingModule } from './app-routing.module';
 /**
  * ng-bootstrap
@@ -13,10 +22,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 /**
  * Angular Material Module
  */
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 /**
  * Custom Component
@@ -24,13 +37,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
-import { environment } from '../environments/environment';
 import { HeaderComponent } from './header/header.component';
+import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
+/**
+ * Custom Service
+ */
 import { GlobalService } from './services/global.service';
 import { UserService } from './services/user.service';
-import { HttpClientModule } from '@angular/common/http';
-import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
+import { AuthService } from './services/auth.service';
+import { NotifyService } from './services/notify.service';
+/**
+ * Others
+ */
+import { environment } from '../environments/environment';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -39,18 +59,24 @@ import { PageNotFoundComponent } from './error/page-not-found/page-not-found.com
     LoginComponent,
     DashboardComponent,
     HeaderComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
+    MatCardModule,
+    MatFormFieldModule,
     MatIconModule,
+    MatInputModule,
     MatToolbarModule,
     MatMenuModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatSnackBarModule,
     NgbModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
@@ -58,6 +84,8 @@ import { PageNotFoundComponent } from './error/page-not-found/page-not-found.com
   providers: [
     GlobalService,
     UserService,
+    AuthService,
+    NotifyService,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,10 +1,9 @@
-
-export function User(id, uid, username, email, profile, icon_image, provider) {
-  this.id = id;
-  this.uid = uid;
-  this.username = username;
-  this.email = email;
-  this.profile = profile;
-  this.icon_image = icon_image;
-  this.provider = provider;
+export class User {
+  id: string;
+  username: string;
+  displayUsername: string;
+  email: string;
+  password: string;
+  profile: string;
+  iconImage: string;
 }

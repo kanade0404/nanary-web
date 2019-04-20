@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  httpHeaders = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+  httpHeaders = new HttpHeaders({'Content-Type': 'application/json;charset=utf-8'});
   constructor(private http: HttpClient) { }
   loginUser(userData: any): Observable<any> {
     return this.http.post(environment.baseUrl + 'api-auth-token/', userData, {headers: this.httpHeaders});
