@@ -10,6 +10,7 @@
           <input matInput formControlName="username" placeholder="メールアドレス">
           <mat-error *ngIf="loginForm.get('username').hasError('required')">メールアドレスは必須です！</mat-error>
           <mat-error *ngIf="loginForm.get('username').hasError('maxlength')">メールアドレスは255文字までです！</mat-error>
+          <mat-error *ngIf="loginForm.get('username').hasError('email')">メールアドレスの形式として正しくありません</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Password</mat-label>
@@ -22,4 +23,4 @@
     </mat-card-content>
   </mat-card>
 </div>
-<a [routerLink]="reguster">ユーザー登録はこちら</a>
+<a [routerLink]="['/register']">ユーザー登録はこちら</a>

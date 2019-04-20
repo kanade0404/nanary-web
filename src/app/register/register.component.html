@@ -7,19 +7,20 @@
       <form (ngSubmit)="signUp()" [formGroup]="registerForm" class="register-form">
         <mat-form-field>
           <mat-label>Username</mat-label>
-          <input matInput fornControlName="username" placeholder="ユーザー名">
+          <input matInput formControlName="username" placeholder="ユーザー名">
           <mat-error *ngIf="registerForm.get('username').hasError('required')">ユーザー名は必須です！</mat-error>
           <mat-error *ngIf="registerForm.get('username').hasError('maxlength')">ユーザー名は100文字までです！</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Email Address</mat-label>
-          <input matInput fornControlName="email" placeholder="メールアドレス">
+          <input matInput formControlName="email" placeholder="メールアドレス">
           <mat-error *ngIf="registerForm.get('email').hasError('required')">メールアドレスは必須です！</mat-error>
           <mat-error *ngIf="registerForm.get('email').hasError('maxlength')">メールアドレスは255文字までです！</mat-error>
+          <mat-error *ngIf="registerForm.get('email').hasError('email')">メールアドレスの形式として正しくありません</mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Password</mat-label>
-          <input matInput type="password" fornControlName="password" placeholder="パスワード">
+          <input matInput type="password" formControlName="password" placeholder="パスワード">
           <mat-error *ngIf="registerForm.get('password').hasError('required')">パスワードは必須です！</mat-error>
           <mat-error *ngIf="registerForm.get('password').hasError('maxlength')">パスワードは255文字以内です！</mat-error>
         </mat-form-field>
@@ -28,4 +29,4 @@
     </mat-card-content>
   </mat-card>
 </div>
-<a [routerLink]="login">登録済みの方はこちら</a>
+<a [routerLink]="['/login']">登録済みの方はこちら</a>

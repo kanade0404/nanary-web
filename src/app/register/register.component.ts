@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
 import { User } from '../models/user';
 
 
@@ -19,8 +18,7 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService) {
     this.registerForm = new FormGroup({
       'username': new FormControl(this.user.username, [
-        Validators.required,
-        Validators.maxLength(100)
+        Validators.required
       ]),
       'email': new FormControl(this.user.email, [
         Validators.required,
