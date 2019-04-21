@@ -46,6 +46,8 @@ import { GlobalService } from './services/global.service';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { NotifyService } from './services/notify.service';
+import { CommentService } from './services/comment.service';
+import { QuestionService } from './services/question.service';
 /**
  * Others
  */
@@ -86,6 +88,8 @@ import { RegisterComponent } from './register/register.component';
     UserService,
     AuthService,
     NotifyService,
+    CommentService,
+    QuestionService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GlobalService } from '../services/global.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,12 +9,9 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private globalService: GlobalService) { }
 
   ngOnInit() {
-    if(!localStorage.getItem('token')) {
-      this.router.navigate(['/login']);
-    }
+    this.globalService.IsSignForm(false);
   }
-
 }

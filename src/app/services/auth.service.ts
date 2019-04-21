@@ -5,13 +5,15 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { GlobalService } from './global.service';
 import { MatSnackBar } from '@angular/material';
+import { User } from '../models/user';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json;charset=utf-8' });
+  httpHeaders = new HttpHeaders(environment.httpHeaders);
 
   constructor(private http: HttpClient,
     private globalService: GlobalService,
@@ -29,52 +31,16 @@ export class AuthService {
    * sing in
    * @param userData signin user info
    */
-  signIn(userData: any) {
-    this.http.post(environment.baseUrl + 'api-auth-token/', userData, { headers: this.httpHeaders }).subscribe(
-      response => {
-        this.globalService.me = response['user'];
-        localStorage.setItem('token', response['token']);
-        this.snackBar.open(
-          'ログインに成功しました',
-          '',
-          { duration: 2000 }
-        );
-        this.router.navigate(['home']);
-      },
-      error => {
-        this.handleError(error);
-        this.snackBar.open(
-          'ログインに失敗しました',
-          '',
-          { duration: 2000 }
-        );
-      }
-    )
+  signIn(userData: User): Observable<any> {
+    return this.http.post(environment.baseUrl + 'api-auth-token/', userData, { headers: this.httpHeaders });
   }
 
   /**
    * sign up
    * @param userData signup user info
    */
-  signUp(userData: any) {
-    this.http.post(environment.baseUrl + 'auth/', userData, { headers: this.httpHeaders }).subscribe(
-      response => {
-        this.snackBar.open(
-          'ユーザー登録に成功しました',
-          '',
-          {duration: 2000}
-        );
-        this.router.navigate(['login']);
-      },
-      error => {
-        this.handleError(error);
-        this.snackBar.open(
-          'ユーザー登録に失敗しました',
-          '',
-          {duration: 2000}
-        );
-      }
-    )
+  signUp(userData: any): Observable<any> {
+    return this.http.post(environment.baseUrl + 'auth/', userData, { headers: this.httpHeaders });
   }
 
   // If error, console log and notify user

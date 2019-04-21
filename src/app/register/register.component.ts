@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
-import { User } from '../models/user';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
+import { GlobalService } from '../services/global.service';
+import { Session } from '../models/session';
 
+
+interface CreateUser {
+  username: string;
+  email: string;
+  password: string;
+}
 
 @Component({
   selector: 'app-register',
@@ -12,10 +20,10 @@ import { User } from '../models/user';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  user: User = new User();
+  user: CreateUser;
 
-  constructor(private router: Router, private formBuilder: FormBuilder,
-    private authService: AuthService) {
+  constructor(private router: Router, private snackBar: MatSnackBar,
+    private authService: AuthService, private globalService: GlobalService) {
     this.registerForm = new FormGroup({
       'username': new FormControl(this.user.username, [
         Validators.required
@@ -32,15 +40,34 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (localStorage.getItem('token')) {
-      this.router.navigate(['home']);
-    }
+    this.globalService.sessionState.subscribe((session: Session) => {
+      if (session.login) {
+        this.router.navigate(['home']);
+      }
+    })
+    this.globalService.IsSignForm(true);
   }
 
   /**
    * ユーザー登録
    */
   async signUp() {
-    await this.authService.signUp(this.registerForm.value);
+    await this.authService.signUp(this.registerForm.value).subscribe(
+      response => {
+        this.snackBar.open(
+          'ユーザー登録しました',
+          '',
+          {duration: 2000}
+        );
+        this.router.navigate(['login']);
+      },
+      error => {
+        this.snackBar.open(
+          `登録に失敗しました。\n${error}`,
+          '',
+          {duration: 2000}
+        );
+      }
+    );
   }
 }

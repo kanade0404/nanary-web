@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { GlobalService } from '../services/global.service';
+import { Session } from '../models/session';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -9,21 +10,26 @@ import { GlobalService } from '../services/global.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  constructor(private router: Router, private globalService: GlobalService) {
+  public login = false;
+  isSignForm:boolean = false;
+  constructor(private globalService: GlobalService,
+    private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-    if(localStorage.getItem('token')) {
-      this.globalService.login = true;
-    } else {
-      this.globalService.login = false;
-    }
+    this.globalService.sessionState.subscribe((session: Session) => {
+      this.login = this.globalService.chkLogin();
+      if (session) {
+        this.login = session.login;
+      }
+    });
+    this.globalService.isSignFormState.subscribe((isSignForm: boolean) => {
+      this.isSignForm = isSignForm;
+    })
   }
+  // サインアウト処理
   signOut() {
-    localStorage.removeItem('token')
-    if (!localStorage.getItem('token')){
-      this.globalService.login = false;
-      this.router.navigate(['login']);
-    }
+    this.globalService.logout;
+    this.snackBar.open('ログアウトしました', '', { duration: 2000 });
   }
 }
