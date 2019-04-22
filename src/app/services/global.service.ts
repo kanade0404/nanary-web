@@ -64,7 +64,9 @@ export class GlobalService {
    * トークンがあればログイン済みとする
    */
   chkLogin(): boolean {
-    return localStorage.getItem('token') && localStorage.getItem('user')? true: false;
+    return localStorage.getItem('token') && localStorage.getItem('user')
+      ? true
+      : false;
   }
 
   IsSignForm(isSignForm: boolean): void {

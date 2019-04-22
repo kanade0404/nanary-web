@@ -6,7 +6,6 @@ import { MatSnackBar } from '@angular/material';
 import { GlobalService } from '../services/global.service';
 import { Session } from '../models/session';
 
-
 interface CreateUser {
   username: string;
   email: string;
@@ -22,17 +21,19 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   user: CreateUser;
 
-  constructor(private router: Router, private snackBar: MatSnackBar,
-    private authService: AuthService, private globalService: GlobalService) {
+  constructor(
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private authService: AuthService,
+    private globalService: GlobalService
+  ) {
     this.registerForm = new FormGroup({
-      'username': new FormControl(this.user.username, [
-        Validators.required
-      ]),
-      'email': new FormControl(this.user.email, [
+      username: new FormControl(this.user.username, [Validators.required]),
+      email: new FormControl(this.user.email, [
         Validators.required,
         Validators.email
       ]),
-      'password': new FormControl(this.user.password, [
+      password: new FormControl(this.user.password, [
         Validators.required,
         Validators.minLength(8)
       ])
@@ -44,7 +45,7 @@ export class RegisterComponent implements OnInit {
       if (session.login) {
         this.router.navigate(['home']);
       }
-    })
+    });
     this.globalService.IsSignForm(true);
   }
 
@@ -54,19 +55,13 @@ export class RegisterComponent implements OnInit {
   async signUp() {
     await this.authService.signUp(this.registerForm.value).subscribe(
       response => {
-        this.snackBar.open(
-          'ユーザー登録しました',
-          '',
-          {duration: 2000}
-        );
+        this.snackBar.open('ユーザー登録しました', '', { duration: 2000 });
         this.router.navigate(['login']);
       },
       error => {
-        this.snackBar.open(
-          `登録に失敗しました。\n${error}`,
-          '',
-          {duration: 2000}
-        );
+        this.snackBar.open(`登録に失敗しました。\n${error}`, '', {
+          duration: 2000
+        });
       }
     );
   }

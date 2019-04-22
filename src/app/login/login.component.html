@@ -7,18 +7,44 @@
       <form (ngSubmit)="signIn()" [formGroup]="loginForm" class="login-form">
         <mat-form-field>
           <mat-label>Email Address</mat-label>
-          <input matInput formControlName="username" placeholder="メールアドレス">
-          <mat-error *ngIf="loginForm.get('username').hasError('required')">メールアドレスは必須です！</mat-error>
-          <mat-error *ngIf="loginForm.get('username').hasError('maxlength')">メールアドレスは255文字までです！</mat-error>
-          <mat-error *ngIf="loginForm.get('username').hasError('email')">メールアドレスの形式として正しくありません</mat-error>
+          <input
+            matInput
+            formControlName="username"
+            placeholder="メールアドレス"
+          />
+          <mat-error *ngIf="loginForm.get('username').hasError('required')"
+            >メールアドレスは必須です！</mat-error
+          >
+          <mat-error *ngIf="loginForm.get('username').hasError('maxlength')"
+            >メールアドレスは255文字までです！</mat-error
+          >
+          <mat-error *ngIf="loginForm.get('username').hasError('email')"
+            >メールアドレスの形式として正しくありません</mat-error
+          >
         </mat-form-field>
         <mat-form-field>
           <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password" placeholder="パスワード">
-          <mat-error *ngIf="loginForm.get('password').hasError('required')">パスワードは必須です！</mat-error>
-          <mat-error *ngIf="loginForm.get('password').hasError('maxlength')">パスワードは255文字以内です！</mat-error>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            placeholder="パスワード"
+          />
+          <mat-error *ngIf="loginForm.get('password').hasError('required')"
+            >パスワードは必須です！</mat-error
+          >
+          <mat-error *ngIf="loginForm.get('password').hasError('maxlength')"
+            >パスワードは255文字以内です！</mat-error
+          >
         </mat-form-field>
-        <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">ログイン</button>
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="loginForm.invalid"
+        >
+          ログイン
+        </button>
       </form>
     </mat-card-content>
   </mat-card>

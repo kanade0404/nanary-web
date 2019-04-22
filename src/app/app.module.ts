@@ -54,7 +54,6 @@ import { QuestionService } from './services/question.service';
 import { environment } from '../environments/environment';
 import { RegisterComponent } from './register/register.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,7 +80,7 @@ import { RegisterComponent } from './register/register.component';
     MatSnackBarModule,
     NgbModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
+    AngularFireAuthModule
   ],
   providers: [
     GlobalService,
@@ -93,4 +92,4 @@ import { RegisterComponent } from './register/register.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

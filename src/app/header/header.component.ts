@@ -3,7 +3,6 @@ import { GlobalService } from '../services/global.service';
 import { Session } from '../models/session';
 import { MatSnackBar } from '@angular/material';
 
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -11,10 +10,11 @@ import { MatSnackBar } from '@angular/material';
 })
 export class HeaderComponent implements OnInit {
   public login = false;
-  isSignForm:boolean = false;
-  constructor(private globalService: GlobalService,
-    private snackBar: MatSnackBar) {
-  }
+  isSignForm: boolean = false;
+  constructor(
+    private globalService: GlobalService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.globalService.sessionState.subscribe((session: Session) => {
@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
     });
     this.globalService.isSignFormState.subscribe((isSignForm: boolean) => {
       this.isSignForm = isSignForm;
-    })
+    });
   }
   // サインアウト処理
   signOut() {
