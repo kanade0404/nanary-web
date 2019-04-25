@@ -5,7 +5,6 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { GlobalService } from '../services/global.service';
 import { MatSnackBar } from '@angular/material';
 import { LoginUser } from '../models/loginUser';
-import { Session } from '../models/session';
 
 @Component({
   selector: 'app-login',
@@ -14,33 +13,35 @@ import { Session } from '../models/session';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  user: LoginUser = new LoginUser();
+  user: LoginUser;
 
   constructor(
     private router: Router,
     private globalService: GlobalService,
     private authService: AuthService,
     private snackBar: MatSnackBar
-  ) {
+  ) {}
+
+  ngOnInit() {
+    if (this.globalService.chkLogin()) {
+      this.globalService.session.login = true;
+      this.globalService.sessionSubject.next(this.globalService.session);
+      this.router.navigate(['home']);
+    } else {
+      this.globalService.isSignFormSubject.next(true);
+      this.globalService.session.login = false;
+      this.globalService.sessionSubject.next(this.globalService.session);
+    }
+    /**
+     * ログインフォーム
+     */
     this.loginForm = new FormGroup({
-      username: new FormControl(this.user.Email, [
-        Validators.required,
-        Validators.email
-      ]),
-      password: new FormControl(this.user.Password, [
+      username: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
         Validators.required,
         Validators.minLength(8)
       ])
     });
-  }
-
-  ngOnInit() {
-    this.globalService.sessionState.subscribe((session: Session) => {
-      if (session.login) {
-        this.router.navigate(['home']);
-      }
-    });
-    this.globalService.IsSignForm(true);
   }
   /**
    * ユーザーが登録済みならトークンを取得しログイン
@@ -52,6 +53,7 @@ export class LoginComponent implements OnInit {
         try {
           this.globalService.login(response['user'], response['token']);
           this.snackBar.open('ログインに成功しました', '', { duration: 2000 });
+          this.router.navigate(['home']);
         } catch (e) {
           this.snackBar.open(`ログインに失敗しました\n${e}`, '', {
             duration: 2000
@@ -64,6 +66,5 @@ export class LoginComponent implements OnInit {
         });
       }
     );
-    this.snackBar.open('OK', '', { duration: 2000 });
   }
 }

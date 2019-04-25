@@ -4,13 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { GlobalService } from '../services/global.service';
-import { Session } from '../models/session';
-
-interface CreateUser {
-  username: string;
-  email: string;
-  password: string;
-}
+import { CreateUser } from '../models/createUser';
 
 @Component({
   selector: 'app-register',
@@ -26,27 +20,27 @@ export class RegisterComponent implements OnInit {
     private snackBar: MatSnackBar,
     private authService: AuthService,
     private globalService: GlobalService
-  ) {
+  ) {}
+
+  ngOnInit() {
+    if (this.globalService.chkLogin) {
+      this.globalService.session.login = true;
+      this.globalService.sessionSubject.next(this.globalService.session);
+      this.router.navigate(['home']);
+    } else {
+      this.globalService.session.login = false;
+      this.globalService.sessionSubject.next(this.globalService.session);
+      this.globalService.IsSignForm(true);
+    }
+    this.globalService.IsSignForm(true);
     this.registerForm = new FormGroup({
-      username: new FormControl(this.user.username, [Validators.required]),
-      email: new FormControl(this.user.email, [
-        Validators.required,
-        Validators.email
-      ]),
-      password: new FormControl(this.user.password, [
+      username: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
         Validators.required,
         Validators.minLength(8)
       ])
     });
-  }
-
-  ngOnInit() {
-    this.globalService.sessionState.subscribe((session: Session) => {
-      if (session.login) {
-        this.router.navigate(['home']);
-      }
-    });
-    this.globalService.IsSignForm(true);
   }
 
   /**

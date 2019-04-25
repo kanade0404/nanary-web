@@ -5,11 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-/**
- * firebase
- */
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+import { FlexLayoutModule } from '@angular/flex-layout';
 /**
  * Routing
  */
@@ -24,8 +20,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
  */
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
@@ -67,20 +65,21 @@ import { RegisterComponent } from './register/register.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FlexLayoutModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatCardModule,
     MatFormFieldModule,
+    MatGridListModule,
     MatIconModule,
     MatInputModule,
+    MatListModule,
     MatToolbarModule,
     MatMenuModule,
     MatButtonModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    NgbModule.forRoot(),
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    NgbModule.forRoot()
   ],
   providers: [
     GlobalService,

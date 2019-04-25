@@ -194,6 +194,13 @@
   resolved "https://registry.yarnpkg.com/@angular/fire/-/fire-5.1.2.tgz#aaf98a3bad27bacbfe422d951bfa7c591abca775"
   integrity sha512-XTpS2+Vnw+poY5FmybOH5+iIgorIHnLH1/r/Zltt7iigvxajsTBPKD9wvxsT0/CtsDIOPB2ql9q0SJVK08iD1A==
 
+"@angular/flex-layout@^7.0.0-beta.24":
+  version "7.0.0-beta.24"
+  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-7.0.0-beta.24.tgz#ad2fd2b0ff5e49119a6e0bc2052256967ad749af"
+  integrity sha512-ll6sK0nLGxqI/f5+z4jbd+pve1QITzgehv2AuGvfSDgIjPMeqUDB5YZqQmIGM/dQRk/vIio5KCW5LQPJWzMMYQ==
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/forms@~7.0.0":
   version "7.0.4"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-7.0.4.tgz#5f2328d297f5c7f9f3af81e1f76a13e1546c743f"
