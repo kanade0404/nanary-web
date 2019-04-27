@@ -51,7 +51,6 @@ import { QuestionService } from './core/services/question.service';
  */
 import { environment } from '../environments/environment';
 import { RegisterComponent } from './pages/register/register.component';
-import { QuestionlistComponent } from './parts/questionlist/questionlist.component';
 
 @NgModule({
   declarations: [
@@ -60,8 +59,7 @@ import { QuestionlistComponent } from './parts/questionlist/questionlist.compone
     DashboardComponent,
     HeaderComponent,
     PageNotFoundComponent,
-    RegisterComponent,
-    QuestionlistComponent
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

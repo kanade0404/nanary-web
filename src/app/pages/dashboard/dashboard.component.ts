@@ -10,7 +10,9 @@ import { Question } from '../../models/question';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  questionList: Question[] = [];
+  test: string = 'hello';
+  question: Question;
+  questionList: Question[];
   constructor(
     private globalService: GlobalService,
     private questionService: QuestionService,
@@ -18,6 +20,20 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.questionService.findAll().subscribe(questions => this.questionList);
+    this.getQuestion();
+    console.log('init');
+    console.log(this.questionList);
+  }
+  getQuestion() {
+    this.questionService.findAll().subscribe(questions => {
+      console.log(questions);
+      let values = [];
+      for (let key in questions) {
+        values.push(questions[key]);
+      }
+      this.questionList = values;
+      console.log(this.questionList);
+    });
+    this.test = this.test === 'hello' ? 'bye' : 'hello';
   }
 }

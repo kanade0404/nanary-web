@@ -1,0 +1,21 @@
+.question-list {
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  .question-list-item {
+    padding: 2px;
+    height: 80px;
+    img {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      height: 50px;
+      border-radius: 20%;
+    }
+    .question-list-content {
+      text-align: left;
+      position: absolute;
+      left: 75px;
+    }
+  }
+}
