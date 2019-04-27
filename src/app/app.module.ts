@@ -33,24 +33,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
  * Custom Component
  */
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { HeaderComponent } from './header/header.component';
-import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
+import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { HeaderComponent } from './layouts/header/header.component';
+import { PageNotFoundComponent } from './pages/error/page-not-found/page-not-found.component';
 /**
  * Custom Service
  */
-import { GlobalService } from './services/global.service';
-import { UserService } from './services/user.service';
-import { AuthService } from './services/auth.service';
-import { NotifyService } from './services/notify.service';
-import { CommentService } from './services/comment.service';
-import { QuestionService } from './services/question.service';
+import { GlobalService } from './core/services/global.service';
+import { UserService } from './core/services/user.service';
+import { AuthService } from './core/services/auth.service';
+import { NotifyService } from './core/services/notify.service';
+import { CommentService } from './core/services/comment.service';
+import { QuestionService } from './core/services/question.service';
 /**
  * Others
  */
 import { environment } from '../environments/environment';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { QuestionlistComponent } from './parts/questionlist/questionlist.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { RegisterComponent } from './register/register.component';
     DashboardComponent,
     HeaderComponent,
     PageNotFoundComponent,
-    RegisterComponent
+    RegisterComponent,
+    QuestionlistComponent
   ],
   imports: [
     BrowserModule,

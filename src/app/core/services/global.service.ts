@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
-import { Session } from '../models/session';
+import { User } from '../../models/user';
+import { Session } from '../../models/session';
 import { Subject } from 'rxjs';
-import { LoginUserInfo } from '../models/loginUserInfo';
-import { environment } from 'src/environments/environment';
+import { LoginUserInfo } from '../../models/loginUserInfo';
 
 @Injectable({
   providedIn: 'root'

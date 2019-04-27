@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalService } from '../services/global.service';
-import { Session } from '../models/session';
+import { GlobalService } from '../../core/services/global.service';
+import { Session } from '../../models/session';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';

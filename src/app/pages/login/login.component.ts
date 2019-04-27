@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { GlobalService } from '../services/global.service';
-import { MatSnackBar } from '@angular/material';
-import { LoginUser } from '../models/loginUser';
-import { UserService } from '../services/user.service';
-import { environment } from 'src/environments/environment';
-import { first } from 'rxjs/operators';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { AuthService } from "../../core/services/auth.service";
+import { FormGroup, Validators, FormControl } from "@angular/forms";
+import { GlobalService } from "../../core/services/global.service";
+import { MatSnackBar } from "@angular/material";
+import { LoginUser } from "../../models/loginUser";
+import { UserService } from "../../core/services/user.service";
+import { environment } from "./node_modules/src/environments/environment";
+import { first } from "rxjs/operators";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     if (this.globalService.chkLogin()) {
       this.globalService.session.login = true;
       this.globalService.sessionSubject.next(this.globalService.session);
-      this.router.navigate(['home']);
+      this.router.navigate(["home"]);
     } else {
       this.globalService.isSignFormSubject.next(true);
       this.globalService.session.login = false;
@@ -45,8 +45,8 @@ export class LoginComponent implements OnInit {
      * password: string
      */
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
+      email: new FormControl("", [Validators.required, Validators.email]),
+      password: new FormControl("", [
         Validators.required,
         Validators.minLength(8)
       ])
@@ -63,18 +63,18 @@ export class LoginComponent implements OnInit {
       await this.authService.signIn(this.loginForm.value).subscribe(_ => {
         this.userService.findUserByEmail(this.loginForm.value.email).subscribe(
           user => {
-            console.log('user', user[0]);
+            console.log("user", user[0]);
             this.globalService.login(user[0]);
-            this.snackBar.open('ログインに成功しました', '', {
+            this.snackBar.open("ログインに成功しました", "", {
               duration: 2000
             });
-            this.router.navigate(['home']);
+            this.router.navigate(["home"]);
           },
           error => {
             console.error(error);
             this.snackBar.open(
               `ログインに失敗しました。\n${error.detail}`,
-              '',
+              "",
               {
                 duration: 2000
               }
@@ -82,10 +82,10 @@ export class LoginComponent implements OnInit {
           }
         );
       });
-      console.log('between signIn and findUserByEmail');
+      console.log("between signIn and findUserByEmail");
     } catch (e) {
       console.error(e);
-      this.snackBar.open(`ログインに失敗しました。\n${e.detail}`, '', {
+      this.snackBar.open(`ログインに失敗しました。\n${e.detail}`, "", {
         duration: 2000
       });
     }

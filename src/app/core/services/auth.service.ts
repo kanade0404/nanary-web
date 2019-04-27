@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { NotifyService } from './notify.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { User } from '../models/user';
+import { environment } from '../../../environments/environment';
+import { User } from '../../models/user';
 import { Observable } from 'rxjs';
-import { LoginUser } from '../models/loginUser';
+import { LoginUser } from '../../models/loginUser';
 import { map } from 'rxjs/operators';
 
 @Injectable({
