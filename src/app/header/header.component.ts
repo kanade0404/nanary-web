@@ -4,6 +4,7 @@ import { Session } from '../models/session';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -12,9 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
   private subscription: Subscription;
-  public login: boolean = !(
-    localStorage.getItem('token') || localStorage.getItem('user')
-  );
+  public login: boolean = this.globalService.chkLogin();
   isSignForm: boolean = false;
   constructor(
     private router: Router,
@@ -29,10 +28,10 @@ export class HeaderComponent implements OnInit {
         this.login = session.login;
       }
     );
-    this.globalService.isSignFormState.subscribe((isSignForm: boolean) => {
-      console.log('isSignForm', isSignForm);
-      this.isSignForm = isSignForm;
-    });
+    // this.globalService.isSignFormState.subscribe((isSignForm: boolean) => {
+    //   console.log('isSignForm', isSignForm);
+    //   this.isSignForm = isSignForm;
+    // });
   }
   clickedLogin() {
     this.router.navigate(['login']);

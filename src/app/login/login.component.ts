@@ -5,6 +5,9 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { GlobalService } from '../services/global.service';
 import { MatSnackBar } from '@angular/material';
 import { LoginUser } from '../models/loginUser';
+import { UserService } from '../services/user.service';
+import { environment } from 'src/environments/environment';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +22,14 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private globalService: GlobalService,
     private authService: AuthService,
+    private userService: UserService,
     private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
+    /**
+     * ログイン状態ならホーム画面に遷移
+     */
     if (this.globalService.chkLogin()) {
       this.globalService.session.login = true;
       this.globalService.sessionSubject.next(this.globalService.session);
@@ -34,9 +41,11 @@ export class LoginComponent implements OnInit {
     }
     /**
      * ログインフォーム
+     * email: string
+     * password: string
      */
     this.loginForm = new FormGroup({
-      username: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8)
@@ -44,27 +53,41 @@ export class LoginComponent implements OnInit {
     });
   }
   /**
-   * ユーザーが登録済みならトークンを取得しログイン
-   * ユーザーが未登録なら登録後、トークンを取得しログイン
+   * ユーザーが登録済みならJWTトークンを取得しログイン
    */
   async signIn() {
-    await this.authService.signIn(this.loginForm.value).subscribe(
-      response => {
-        try {
-          this.globalService.login(response['user'], response['token']);
-          this.snackBar.open('ログインに成功しました', '', { duration: 2000 });
-          this.router.navigate(['home']);
-        } catch (e) {
-          this.snackBar.open(`ログインに失敗しました\n${e}`, '', {
-            duration: 2000
-          });
-        }
-      },
-      error => {
-        this.snackBar.open(`ログインに失敗しました。\n${error}`, '', {
-          duration: 2000
-        });
+    try {
+      if (this.loginForm.invalid) {
+        return;
       }
-    );
+      await this.authService.signIn(this.loginForm.value).subscribe(_ => {
+        this.userService.findUserByEmail(this.loginForm.value.email).subscribe(
+          user => {
+            console.log('user', user[0]);
+            this.globalService.login(user[0]);
+            this.snackBar.open('ログインに成功しました', '', {
+              duration: 2000
+            });
+            this.router.navigate(['home']);
+          },
+          error => {
+            console.error(error);
+            this.snackBar.open(
+              `ログインに失敗しました。\n${error.detail}`,
+              '',
+              {
+                duration: 2000
+              }
+            );
+          }
+        );
+      });
+      console.log('between signIn and findUserByEmail');
+    } catch (e) {
+      console.error(e);
+      this.snackBar.open(`ログインに失敗しました。\n${e.detail}`, '', {
+        duration: 2000
+      });
+    }
   }
 }

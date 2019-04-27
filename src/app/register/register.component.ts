@@ -23,16 +23,14 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.globalService.chkLogin) {
+    if (this.globalService.chkLogin()) {
       this.globalService.session.login = true;
       this.globalService.sessionSubject.next(this.globalService.session);
       this.router.navigate(['home']);
     } else {
       this.globalService.session.login = false;
       this.globalService.sessionSubject.next(this.globalService.session);
-      this.globalService.IsSignForm(true);
     }
-    this.globalService.IsSignForm(true);
     this.registerForm = new FormGroup({
       username: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -48,7 +46,7 @@ export class RegisterComponent implements OnInit {
    */
   async signUp() {
     await this.authService.signUp(this.registerForm.value).subscribe(
-      response => {
+      _ => {
         this.snackBar.open('ユーザー登録しました', '', { duration: 2000 });
         this.router.navigate(['login']);
       },

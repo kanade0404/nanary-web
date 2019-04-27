@@ -10,15 +10,5 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
   constructor(private globalService: GlobalService, private router: Router) {}
 
-  ngOnInit() {
-    if (this.globalService.chkLogin()) {
-      this.globalService.session.login = true;
-      this.globalService.sessionSubject.next(this.globalService.session);
-      this.globalService.IsSignForm(false);
-    } else {
-      this.globalService.session.login = false;
-      this.globalService.sessionSubject.next(this.globalService.session);
-      this.router.navigate(['login']);
-    }
-  }
+  ngOnInit() {}
 }

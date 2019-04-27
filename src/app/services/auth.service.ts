@@ -4,39 +4,48 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user';
 import { Observable } from 'rxjs';
+import { LoginUser } from '../models/loginUser';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  httpHeaders = new HttpHeaders(environment.httpHeaders);
-
   constructor(private http: HttpClient, private notify: NotifyService) {}
 
   /**
-   * sign out and remove token in local storage
-   */
-  signOut() {
-    localStorage.removeItem('token');
-  }
-
-  /**
-   * sing in
+   * サインイン
    * @param userData signin user info
    */
-  signIn(userData: User): Observable<any> {
-    return this.http.post(environment.baseUrl + 'api-auth-token/', userData, {
-      headers: this.httpHeaders
-    });
+  signIn(userData: LoginUser) {
+    console.log('singin');
+    return this.http
+      .post<any>(environment.baseUrl + 'api-auth-token/', userData, {
+        headers: new HttpHeaders({
+          'Content-Type': environment.contentTypeJson
+        })
+      })
+      .pipe(
+        map(response => {
+          console.log(response.token);
+          if (response.token) {
+            localStorage.setItem('token', response.token);
+          }
+        })
+      );
   }
 
   /**
-   * sign up
+   * サインアップ
    * @param userData signup user info
    */
   signUp(userData: any): Observable<any> {
+    console.log('signup');
+    console.log(userData);
     return this.http.post(environment.baseUrl + 'auth/', userData, {
-      headers: this.httpHeaders
+      headers: new HttpHeaders({
+        'Content-Type': environment.contentTypeJson
+      })
     });
   }
 

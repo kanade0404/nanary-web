@@ -7,23 +7,14 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  httpHeaders = new HttpHeaders({
-    'Content-Type': 'application/json;charset=utf-8'
-  });
   constructor(private http: HttpClient) {}
-  loginUser(userData: any): Observable<any> {
-    return this.http.post(environment.baseUrl + 'api-auth-token/', userData, {
-      headers: this.httpHeaders
-    });
-  }
-  registerUser(userData: any): Observable<any> {
-    return this.http.post(environment.baseUrl + 'auth/', userData, {
-      headers: this.httpHeaders
-    });
-  }
   findUserByEmail(email: string): Observable<any> {
-    return this.http.get(environment.baseUrl + 'auth/?email=' + email, {
-      headers: this.httpHeaders
+    console.log('session key', localStorage.getItem('token'));
+    return this.http.get(environment.baseApiUrl + 'users/?email=' + email, {
+      headers: new HttpHeaders({
+        'Content-Type': environment.contentTypeJson,
+        Authorization: 'JWT ' + localStorage.getItem('token')
+      })
     });
   }
 }

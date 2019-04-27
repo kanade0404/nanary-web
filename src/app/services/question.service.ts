@@ -8,30 +8,38 @@ import { Question } from '../models/question';
   providedIn: 'root'
 })
 export class QuestionService {
-  httpHeaders = new HttpHeaders({
-    'Content-Type': 'application/json;charset=UTF-8',
-    Authorization: 'Token ' + localStorage.getItem('token')
-  });
   constructor(private http: HttpClient) {}
 
   findAll(): Observable<any> {
     return this.http.get(environment.baseApiUrl + 'question/', {
-      headers: this.httpHeaders
+      headers: new HttpHeaders({
+        'Content-Type': environment.contentTypeJson,
+        Authorization: 'JWT ' + localStorage.getItem('token')
+      })
     });
   }
   findById(id: string): Observable<any> {
     return this.http.get(environment.baseApiUrl + `question/${id}/`, {
-      headers: this.httpHeaders
+      headers: new HttpHeaders({
+        'Content-Type': environment.contentTypeJson,
+        Authorization: 'JWT ' + localStorage.getItem('token')
+      })
     });
   }
   save(question: Question): Observable<any> {
     return this.http.post(environment.baseApiUrl + 'question/', question, {
-      headers: this.httpHeaders
+      headers: new HttpHeaders({
+        'Content-Type': environment.contentTypeJson,
+        Authorization: 'JWT ' + localStorage.getItem('token')
+      })
     });
   }
   update(question: Question): Observable<any> {
     return this.http.put(environment.baseApiUrl + 'question/', question, {
-      headers: this.httpHeaders
+      headers: new HttpHeaders({
+        'Content-Type': environment.contentTypeJson,
+        Authorization: 'JWT ' + localStorage.getItem('token')
+      })
     });
   }
 }
