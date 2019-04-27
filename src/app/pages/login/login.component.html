@@ -1,0 +1,105 @@
+<div fxLayout="column">
+  <div fxFlex="50%" style="margin-bottom:20px;margin-top:20px;">
+    <div fxLayout="row">
+      <div fxFlex="10%"></div>
+      <div fxFlex="45%"></div>
+      <div fxFlex="35%">
+        <div class="login-div">
+          <mat-card class="login-card">
+            <mat-card-header class="login-header">
+              <mat-card-title class="login-title">ログイン</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="login-content">
+              <form
+                (ngSubmit)="signIn()"
+                [formGroup]="loginForm"
+                class="login-form"
+              >
+                <mat-form-field>
+                  <mat-label>Email Address</mat-label>
+                  <input
+                    matInput
+                    formControlName="email"
+                    placeholder="メールアドレス"
+                  />
+                  <mat-error *ngIf="loginForm.get('email').hasError('required')"
+                    >メールアドレスは必須です！</mat-error
+                  >
+                  <mat-error
+                    *ngIf="loginForm.get('email').hasError('maxlength')"
+                    >メールアドレスは255文字までです！</mat-error
+                  >
+                  <mat-error *ngIf="loginForm.get('email').hasError('email')"
+                    >メールアドレスの形式として正しくありません</mat-error
+                  >
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Password</mat-label>
+                  <input
+                    matInput
+                    type="password"
+                    formControlName="password"
+                    placeholder="パスワード"
+                  />
+                  <mat-error
+                    *ngIf="loginForm.get('password').hasError('required')"
+                    >パスワードは必須です！</mat-error
+                  >
+                  <mat-error
+                    *ngIf="loginForm.get('password').hasError('maxlength')"
+                    >パスワードは255文字以内です！</mat-error
+                  >
+                </mat-form-field>
+                <button
+                  type="submit"
+                  mat-raised-button
+                  color="primary"
+                  [disabled]="loginForm.invalid"
+                >
+                  ログイン
+                </button>
+              </form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <a [routerLink]="['/register']">ユーザー登録はこちら</a>
+      </div>
+      <div fxFlex="10%"></div>
+    </div>
+  </div>
+  <div fxFlex="50%" style="margin-top: 20px;">
+    <div fxLayout="row">
+      <div fxFlex="20%"></div>
+      <div fxFlex="60%">
+        <mat-list class="question-list">
+          <mat-list-item class="question-list-item">
+            <div>
+              <img
+                src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/326587/profile-images/1556110720"
+                alt=""
+              />
+            </div>
+            <div class="question-list-content">
+              <h4 mat-line>Java.NullPointerExceptionが発生します。</h4>
+              <p mat-line>2019/4/25</p>
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item class="question-list-item">
+            <div>
+              <img
+                src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/326587/profile-images/1556110720"
+                alt=""
+              />
+            </div>
+            <div class="question-list-content">
+              <h4 mat-line>公開鍵暗号と共通鍵暗号の違いがよくわかりません</h4>
+              <p mat-line>2019/4/26</p>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+      <div fxFlex="20%"></div>
+    </div>
+  </div>
+</div>
