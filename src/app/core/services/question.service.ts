@@ -18,6 +18,17 @@ export class QuestionService {
       })
     });
   }
+  findFastAll(): Observable<Question[]> {
+    return this.http.get<Question[]>(
+      environment.baseApiUrl + 'question/fast/',
+      {
+        headers: new HttpHeaders({
+          'Content-Type': environment.contentTypeJson,
+          Authorization: 'JWT ' + localStorage.getItem('token')
+        })
+      }
+    );
+  }
   findById(id: string): Observable<any> {
     return this.http.get(environment.baseApiUrl + `question/${id}/`, {
       headers: new HttpHeaders({

@@ -9,7 +9,6 @@ import { environment } from '../../../environments/environment';
 export class UserService {
   constructor(private http: HttpClient) {}
   findUserByEmail(email: string): Observable<any> {
-    console.log('session key', localStorage.getItem('token'));
     return this.http.get(environment.baseApiUrl + 'users/?email=' + email, {
       headers: new HttpHeaders({
         'Content-Type': environment.contentTypeJson,
